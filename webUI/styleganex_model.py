@@ -9,6 +9,7 @@ import torch
 import dlib
 import cv2
 import PIL
+from typing import Any, Optional
 from tqdm import tqdm
 import numpy as np
 import torch.nn.functional as F
@@ -421,7 +422,7 @@ class Model():
         return viz_frames, 'output.mp4'   
     
     
-    def process_inversion(self, input_image: str, optimize: str, input_latent: file-object, editing_options: str, 
+    def process_inversion(self, input_image: str, optimize: str, input_latent: Optional[Any], editing_options: str, 
                           scale_factor: float, seed: int) -> tuple[np.ndarray, np.ndarray]:
         #false_image = np.zeros((256,256,3), np.uint8)
         #info = 'Error: no face detected! Please retry or change the photo.'

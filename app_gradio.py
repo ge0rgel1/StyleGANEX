@@ -90,7 +90,7 @@ def main():
         gr.Markdown(ARTICLE)
         gr.Markdown(FOOTER)
     
-    demo.queue(concurrency_count=1)
+    demo.queue()
     demo.launch(server_port=8088, server_name="0.0.0.0", debug=True)
 
 if __name__ == '__main__':

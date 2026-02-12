@@ -10,14 +10,14 @@ def create_demo_sr(process):
             gr.Markdown('## Face Super Resolution')
         with gr.Row():
             with gr.Column():
-                input_image = gr.Image(source='upload', type='filepath')
+                input_image = gr.Image(sources=['upload'], type='filepath')
                 model_type = gr.Radio(label='Model Type', choices=['SR for 32x','SR for 4x-48x'], value='SR for 32x')
                 resize_scale = gr.Slider(label='Resize Scale',
                                             minimum=4,
                                             maximum=48,
                                             value=32,
                                             step=4)                                
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['pexels-daniel-xavier-1239291.jpg', 'SR for 32x', 32],
                                ['ILip77SbmOE.png', 'SR for 32x', 32],
@@ -29,8 +29,9 @@ def create_demo_sr(process):
                 #lrinput = gr.Image(label='Low-resolution input',type='numpy', interactive=False)
                 #result = gr.Image(label='Output',type='numpy', interactive=False)
                 result = gr.Gallery(label='LR input and Output',
-                                    elem_id='gallery').style(grid=2,
-                                                             height='auto')    
+                                    elem_id='gallery',
+                                    columns=2,
+                                    height='auto')    
 
         inputs = [
             input_image,
@@ -49,7 +50,7 @@ def create_demo_s2f(process):
             gr.Markdown('## Sketch-to-Face Translation')
         with gr.Row():
             with gr.Column():
-                input_image = gr.Image(source='upload', type='filepath')
+                input_image = gr.Image(sources=['upload'], type='filepath')
                 gr.Markdown("""Note: Input will be cropped if larger than 512x512.""")
                 seed = gr.Slider(label='Seed for appearance',
                                     minimum=0,
@@ -57,7 +58,7 @@ def create_demo_s2f(process):
                                     step=1,
                                     randomize=True)
                 #input_info = gr.Textbox(label='Process Information', interactive=False, value='n.a.')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['234_sketch.jpg', 1024]],
                     inputs = [input_image, seed],
@@ -81,7 +82,7 @@ def create_demo_m2f(process):
             gr.Markdown('## Mask-to-Face Translation')
         with gr.Row():
             with gr.Column():
-                input_image = gr.Image(source='upload', type='filepath') 
+                input_image = gr.Image(sources=['upload'], type='filepath') 
                 input_type = gr.Radio(label='Input Type', choices=['color image','parsing mask'], value='color image')
                 seed = gr.Slider(label='Seed for appearance',
                                     minimum=0,
@@ -89,7 +90,7 @@ def create_demo_m2f(process):
                                     step=1,
                                     randomize=True)
                 #input_info = gr.Textbox(label='Process Information', interactive=False, value='n.a.')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['ILip77SbmOE.png', 'color image', 4], ['ILip77SbmOE_mask.png', 'parsing mask', 4]],
                     inputs = [input_image, input_type, seed],
@@ -98,8 +99,9 @@ def create_demo_m2f(process):
                 #vizmask = gr.Image(label='Visualized mask',type='numpy', interactive=False)
                 #result = gr.Image(label='Output',type='numpy', interactive=False) 
                 result = gr.Gallery(label='Visualized mask and Output',
-                                    elem_id='gallery').style(grid=2,
-                                                             height='auto')                
+                                    elem_id='gallery',
+                                    columns=2,
+                                    height='auto')                
 
         inputs = [
             input_image, input_type, seed
@@ -116,7 +118,7 @@ def create_demo_editing(process):
             gr.Markdown('## Video Face Editing (for image input)')
         with gr.Row():
             with gr.Column():
-                input_image = gr.Image(source='upload', type='filepath') 
+                input_image = gr.Image(sources=['upload'], type='filepath') 
                 model_type = gr.Radio(label='Editing Type', choices=['reduce age','light hair color'], value='color image')
                 scale_factor = gr.Slider(label='editing degree (-2~2)',
                                     minimum=-2,
@@ -124,7 +126,7 @@ def create_demo_editing(process):
                                     value=1,
                                     step=0.1)
                 #input_info = gr.Textbox(label='Process Information', interactive=False, value='n.a.')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['ILip77SbmOE.png', 'reduce age', -2], 
                                ['ILip77SbmOE.png', 'light hair color', 1]],
@@ -148,10 +150,10 @@ def create_demo_toonify(process):
             gr.Markdown('## Video Face Toonification (for image input)')
         with gr.Row():
             with gr.Column():
-                input_image = gr.Image(source='upload', type='filepath') 
+                input_image = gr.Image(sources=['upload'], type='filepath') 
                 style_type = gr.Radio(label='Style Type', choices=['Pixar','Cartoon','Arcane'], value='Pixar')                
                 #input_info = gr.Textbox(label='Process Information', interactive=False, value='n.a.')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['ILip77SbmOE.png', 'Pixar'], ['ILip77SbmOE.png', 'Cartoon'], ['ILip77SbmOE.png', 'Arcane']],
                     inputs = [input_image, style_type],
@@ -175,7 +177,7 @@ def create_demo_vediting(process, max_frame_num = 4):
             gr.Markdown('## Video Face Editing (for video input)')
         with gr.Row():
             with gr.Column():
-                input_video = gr.Video(source='upload', mirror_webcam=False, type='filepath') 
+                input_video = gr.Video(sources=['upload'], mirror_webcam=False)
                 model_type = gr.Radio(label='Editing Type', choices=['reduce age','light hair color'], value='color image')
                 scale_factor = gr.Slider(label='editing degree (-2~2)',
                                     minimum=-2,
@@ -192,15 +194,15 @@ def create_demo_vediting(process, max_frame_num = 4):
                                     value=4,
                                     step=1)   
                 #input_info = gr.Textbox(label='Process Information', interactive=False, value='n.a.')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['684.mp4', 'reduce age', 1.5, 2], 
                                ['684.mp4', 'light hair color', 0.7, 2]],
                     inputs = [input_video, model_type, scale_factor],
                 )                
             with gr.Column():
-                viz_result = gr.Gallery(label='Several edited frames', elem_id='gallery').style(grid=2, height='auto')  
-                result = gr.Video(label='Output', type='mp4', interactive=False) 
+                viz_result = gr.Gallery(label='Several edited frames', elem_id='gallery', columns=2, height='auto')  
+                result = gr.Video(label='Output', format='mp4', interactive=False)
 
         inputs = [
             input_video, scale_factor, model_type, frame_num
@@ -217,7 +219,7 @@ def create_demo_vtoonify(process, max_frame_num = 4):
             gr.Markdown('## Video Face Toonification (for video input)')
         with gr.Row():
             with gr.Column():
-                input_video = gr.Video(source='upload', mirror_webcam=False, type='filepath') 
+                input_video = gr.Video(sources=['upload'], mirror_webcam=False)
                 style_type = gr.Radio(label='Style Type', choices=['Pixar','Cartoon','Arcane'], value='Pixar')
                 info = ''
                 if max_frame_num < 100:
@@ -229,7 +231,7 @@ def create_demo_vtoonify(process, max_frame_num = 4):
                                     value=4,
                                     step=1)            
                 #input_info = gr.Textbox(label='Process Information', interactive=False, value='n.a.')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['529_2.mp4', 'Arcane'],
                                ['pexels-anthony-shkraba-production-8136210.mp4', 'Pixar'], 
@@ -237,8 +239,8 @@ def create_demo_vtoonify(process, max_frame_num = 4):
                     inputs = [input_video, style_type],
                 )                
             with gr.Column():
-                viz_result = gr.Gallery(label='Several toonified frames', elem_id='gallery').style(grid=2, height='auto')  
-                result = gr.Video(label='Output', type='mp4', interactive=False) 
+                viz_result = gr.Gallery(label='Several toonified frames', elem_id='gallery', columns=2, height='auto')  
+                result = gr.Video(label='Output', format='mp4', interactive=False)
 
         inputs = [
             input_video, style_type, frame_num
@@ -255,7 +257,7 @@ def create_demo_inversion(process, allow_optimization=False):
             gr.Markdown('## StyleGANEX Inversion for Editing')
         with gr.Row():
             with gr.Column():
-                input_image = gr.Image(source='upload', type='filepath') 
+                input_image = gr.Image(sources=['upload'], type='filepath') 
                 info = ''
                 if allow_optimization == False:
                     info = ' (latent optimization is not allowed so as not to slow down the demo, \
@@ -292,7 +294,7 @@ def create_demo_inversion(process, allow_optimization=False):
                                     step=1,
                                     randomize=True)
                 #input_info = gr.Textbox(label='Process Information', interactive=False, value='n.a.')
-                run_button = gr.Button(label='Run')
+                run_button = gr.Button(value='Run')
                 gr.Examples(
                     examples =[['ILip77SbmOE.png', 'ILip77SbmOE_inversion.pt', 'Domain Transfer: vintage_comics'],
                                ['ILip77SbmOE.png', 'ILip77SbmOE_inversion.pt', 'Attribute Editing: smile'],

@@ -1,0 +1,53 @@
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+.python-version
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Notebooks and checkpoints
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+
+# Generated artifacts
+build/
+dist/
+*.egg-info/
+runs/
+logs/
+results/
+checkpoints/
+wandb/
+
+# Large assets downloaded at runtime
+pretrained_models/
+# data/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# random generated files
+.jpg
+.mp4
+.pt
+
+# my file
+note.md
+test.py
